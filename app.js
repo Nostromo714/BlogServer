@@ -6,19 +6,15 @@ const cookieParser = require("cookie-parser");
 const { dbConnect } = require("./db");
 const PORT = process.env.PORT;
 
-
-// import router
-const storyReviewRoute  = require('./routers/StoryReview')
-const profile = require('./routers/Profile')
-
-
 // Import routers
-const storyRoute = require('./routers/storyRoute');
-const newsletterRoutes = require('./routers/newsletterRoute'); 
 const blogRoutes = require('./routers/blogRoutes');
+const blogPageRoutes = require('./routers/blogageRoutes');
 const commentRoutes = require('./routers/commentRoutes');
-const blogPageRoutes = require('./routers/blogpageRoutes');
 const eventRoutes = require('./routers/EventCreation')
+const newsletterRoutes = require('./routers/newsletterRoute'); 
+const profile = require('./routers/Profile')
+const storyReviewRoute  = require('./routers/StoryReview')
+const storyRoute = require('./routers/storyRoute');
 
 
 //Middleware
@@ -26,16 +22,17 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-
 // use routes
-app.use("/profile", profile)
+
 app.use("/blog", blogRoutes);
 app.use('/blogpages', blogPageRoutes);
 app.use("/comments", commentRoutes);
-app.use("/newsletter", newsletterRoutes); 
-app.use("/stories", storyRoute);
 app.use("/events",eventRoutes)
+app.use("/newsletter", newsletterRoutes);
+app.use("/profile", profile)
 app.use('/storyReview', storyReviewRoute)
+app.use("/stories", storyRoute);
+
 
 app.listen(PORT, () => {
     dbConnect();
